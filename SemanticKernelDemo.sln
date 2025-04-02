@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel.Demo1.HelloWorld", "SemanticKernel.Demo1.HelloWorld\SemanticKernel.Demo1.HelloWorld.csproj", "{B99AC43C-7E24-484F-AD83-034182D34E04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel.Demo2.Plugins", "SemanticKernel.Demo2.Plugins\SemanticKernel.Demo2.Plugins.csproj", "{0F732FB2-FD46-466C-873E-49176551A03F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel.Demo3.AdvancedFeatures", "SemanticKernel.Demo3.AdvancedFeatures\SemanticKernel.Demo3.AdvancedFeatures.csproj", "{04280A0E-6E7A-4555-A029-656B6EACE0F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B99AC43C-7E24-484F-AD83-034182D34E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B99AC43C-7E24-484F-AD83-034182D34E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B99AC43C-7E24-484F-AD83-034182D34E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B99AC43C-7E24-484F-AD83-034182D34E04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F732FB2-FD46-466C-873E-49176551A03F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F732FB2-FD46-466C-873E-49176551A03F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F732FB2-FD46-466C-873E-49176551A03F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F732FB2-FD46-466C-873E-49176551A03F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04280A0E-6E7A-4555-A029-656B6EACE0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04280A0E-6E7A-4555-A029-656B6EACE0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04280A0E-6E7A-4555-A029-656B6EACE0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04280A0E-6E7A-4555-A029-656B6EACE0F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16DD16BA-8925-473C-9247-8904794196E3}
+	EndGlobalSection
+EndGlobal
