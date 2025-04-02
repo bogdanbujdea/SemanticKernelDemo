@@ -30,6 +30,9 @@ kernel.ImportPluginFromObject(
     new FacebookPostCreator(loggerFactory.CreateLogger<FacebookPostCreator>()), "FacebookPostCreator"
 );
 
+kernel.FunctionInvocationFilters.Add(new UserPermissionFilter());
+kernel.PromptRenderFilters.Add(new RenderFilter());
+
 var chatHistory = new ChatHistory();
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
