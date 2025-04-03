@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
@@ -9,7 +10,7 @@ using SemanticKernel.Demo3.AdvancedFeatures;
 var services = new ServiceCollection();
 services.AddLogging(builder =>
 {
-    builder.SetMinimumLevel(LogLevel.Information).AddConsole().AddDebug();
+    builder.SetMinimumLevel(LogLevel.Trace).AddConsole();
 });
 
 var serviceProvider = services.BuildServiceProvider();
@@ -22,7 +23,6 @@ var kernelBuilder = Kernel
 
 var kernel = kernelBuilder.Build();
 
-// Import the letter counter plugin
 kernel.ImportPluginFromObject(
     new FacebookPostScheduler(loggerFactory.CreateLogger<FacebookPostScheduler>()), "FacebookPostScheduler"
 );
@@ -36,7 +36,6 @@ kernel.PromptRenderFilters.Add(new RenderFilter());
 var chatHistory = new ChatHistory();
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-// Configure the chat to use tools
 var executionSettings = new OpenAIPromptExecutionSettings
 {
     ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
@@ -55,7 +54,7 @@ var systemMessage = $$"""
 chatHistory.AddSystemMessage(
     systemMessage
 );
-logger.LogInformation("Starting Semantic Kernel social media planner");
+Console.WriteLine("Starting Semantic Kernel social media planner");
 
 while (true)
 {
@@ -65,14 +64,13 @@ while (true)
     if (string.IsNullOrEmpty(userInput) || userInput.ToLower() == "exit")
         break;
 
-    logger.LogInformation("User input: {Input}", userInput);
     chatHistory.AddUserMessage(userInput);
     var response = await chatCompletionService.GetChatMessageContentAsync(chatHistory,
         executionSettings,
         kernel);
 
-    Console.Write("\nAssistant: ");
-    logger.LogInformation("Assistant response: {Response}", response.Content);
+    Console.Write($"\nAssistant: {response.Content}");
+    logger.LogTrace("Assistant response: {Response}", JsonSerializer.Serialize(response.Metadata!["Usage"]));
     chatHistory.AddAssistantMessage(response.Content!);
 }
 

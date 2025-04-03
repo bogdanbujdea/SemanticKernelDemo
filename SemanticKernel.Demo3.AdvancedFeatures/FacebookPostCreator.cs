@@ -47,7 +47,7 @@ public class FacebookPostCreator
                               The start date is {{startDate:F}}
 
                               NEVER respond with plain text. ALWAYS use the JSON format specified above.
-
+                              The topic is {{topic}}
                               """;
         var response = await kernel.InvokePromptAsync(systemMessage, new(settings));
         var json = response.GetValue<string>()!;

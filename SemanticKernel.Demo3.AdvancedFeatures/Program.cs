@@ -5,11 +5,10 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using SemanticKernel.Demo3.AdvancedFeatures;
 
-// Configure logging
 var services = new ServiceCollection();
 services.AddLogging(builder =>
 {
-    builder.SetMinimumLevel(LogLevel.Information).AddConsole().AddDebug();
+    builder.SetMinimumLevel(LogLevel.Warning).AddConsole().AddDebug();
 });
 
 var serviceProvider = services.BuildServiceProvider();
@@ -22,7 +21,6 @@ var kernelBuilder = Kernel
 
 var kernel = kernelBuilder.Build();
 
-// Import the letter counter plugin
 kernel.ImportPluginFromObject(
     new FacebookPostScheduler(loggerFactory.CreateLogger<FacebookPostScheduler>()), "FacebookPostScheduler"
 );
@@ -33,7 +31,6 @@ kernel.ImportPluginFromObject(
 var chatHistory = new ChatHistory();
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-// Configure the chat to use tools
 var executionSettings = new OpenAIPromptExecutionSettings
 {
     ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
@@ -46,13 +43,12 @@ var systemMessage = $$"""
                               You will help the user generate Facebook posts and schedule them on Facebook.
                               Always ask for confirmation before scheduling posts.
                               The current date in UTC time is {{DateTime.UtcNow:F}}
-                              The id of the user is 1234
                               """;
 
 chatHistory.AddSystemMessage(
     systemMessage
 );
-logger.LogInformation("Starting Semantic Kernel social media planner");
+Console.WriteLine("Starting Semantic Kernel social media planner");
 
 while (true)
 {
@@ -68,8 +64,7 @@ while (true)
         executionSettings,
         kernel);
 
-    Console.Write("\nAssistant: ");
-    logger.LogInformation("Assistant response: {Response}", response.Content);
+    Console.Write($"\nAssistant: {response.Content}");
     chatHistory.AddAssistantMessage(response.Content!);
 }
 

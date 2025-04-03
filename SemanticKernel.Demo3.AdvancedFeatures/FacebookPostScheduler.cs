@@ -17,8 +17,7 @@ public class FacebookPostScheduler
     [return: Description("Returns true for success, false otherwise")]
     public async Task<bool> ScheduleFacebookPost(
         [Description("The text for the post")] string facebookPost,
-        [Description("The date when the post should be scheduled")] DateTime dateTime,
-        [Description("The userId")] string userId
+        [Description("The date when the post should be scheduled")] DateTime dateTime
     )
     {
         _logger.LogInformation("Scheduled post {post} on: {date}", facebookPost, dateTime);

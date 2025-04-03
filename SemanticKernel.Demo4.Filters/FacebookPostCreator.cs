@@ -6,15 +6,8 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 namespace SemanticKernel.Demo3.AdvancedFeatures;
 
-public class FacebookPostCreator
+public class FacebookPostCreator(ILogger<FacebookPostCreator> logger)
 {
-    private readonly ILogger<FacebookPostCreator> _logger;
-
-    public FacebookPostCreator(ILogger<FacebookPostCreator> logger)
-    {
-        _logger = logger;
-    }
-
     [KernelFunction, Description("Creates content for Facebook")]
     [return: Description("A json with a list of objects that contain the text for the Facebook post and the date when it should be scheduled")]
     [Experimental("SKEXP0010")]
@@ -24,10 +17,10 @@ public class FacebookPostCreator
         [Description("The start date for the first post")] DateTime startDate
     )
     {
-        _logger.LogInformation("Creating posts for topic {topic} starting on {startDate}", topic, startDate);
+        logger.LogInformation("Creating posts for topic {topic} starting on {startDate}", topic, startDate);
         var settings = new OpenAIPromptExecutionSettings
         {
-            Temperature = 0.1,
+            Temperature = 0.5,
             MaxTokens = 2000,
             ResponseFormat = "json_object"
         };
@@ -47,11 +40,11 @@ public class FacebookPostCreator
                               The start date is {{startDate:F}}
 
                               NEVER respond with plain text. ALWAYS use the JSON format specified above.
-
+                              The topic is {{topic}}
                               """;
         var response = await kernel.InvokePromptAsync(systemMessage, new(settings));
         var json = response.GetValue<string>()!;
-        _logger.LogInformation("JSON for Facebook posts: {json}", json);
+        logger.LogInformation("JSON for Facebook posts: {json}", json);
         return json;
     }
 }
